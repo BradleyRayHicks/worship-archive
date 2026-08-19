@@ -1,0 +1,26 @@
+# Dependencies
+node_modules/
+
+# Generated web bundles
+build/
+ios/App/App/public/
+ios/capacitor-cordova-ios-plugins/resources/
+ios/capacitor-cordova-ios-plugins/sources/
+
+# Local environment files
+.env
+.env.*
+!.env.example
+
+# macOS
+.DS_Store
+
+# Xcode user and build data
+DerivedData/
+*.xcuserstate
+xcuserdata/
+ios/App/DerivedData/
+
+# Logs
+*.log
+npm-debug.log*

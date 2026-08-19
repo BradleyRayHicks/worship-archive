@@ -1,46 +1,77 @@
-# Getting Started with Create React App
+# Worship Archive
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Worship Archive is a React and Capacitor application with an iOS project in
+`ios/App`.
 
-## Available Scripts
+## Requirements
 
-In the project directory, you can run:
+- macOS
+- Node.js 22 or newer
+- npm
+- Xcode with an iOS Simulator runtime
+- An Apple development team only when running on a physical device or creating
+  an archive
 
-### `npm start`
+The application currently targets iOS 15 or newer.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Install and build
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+From the repository root:
 
-### `npm test`
+```sh
+npm ci
+npm run ios:sync
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+`ios:sync` creates the production React bundle and copies it into the native
+iOS project.
 
-### `npm run build`
+## Run in Xcode
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+Open the native project:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+```sh
+npm run ios:open
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+In Xcode:
 
-### `npm run eject`
+1. Select the `App` scheme.
+2. Choose an iOS Simulator and press Run.
+3. For a physical device, open **Signing & Capabilities** and select an Apple
+   development team that can sign `com.worshiparchive.app`.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+If your Apple team does not control that bundle identifier, use a bundle
+identifier registered to your team. Coordinate that change before publishing
+because it changes the app's identity.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Command-line Simulator build
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+After `npm run ios:sync`, a signing-free Simulator build can be checked with:
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```sh
+xcodebuild \
+  -project ios/App/App.xcodeproj \
+  -scheme App \
+  -configuration Debug \
+  -sdk iphonesimulator \
+  CODE_SIGNING_ALLOWED=NO \
+  build
+```
 
-## Learn More
+## Web development
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+Run the local React development server:
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+```sh
+npm start
+```
+
+The app uses the hosted Supabase project configured in `src/App.tsx`. Spotify
+authentication on localhost expects `http://127.0.0.1:3000` as its redirect.
+
+## Generated files
+
+Do not commit `node_modules`, `build`, `ios/App/App/public`, Xcode `DerivedData`,
+or `xcuserdata`. Run `npm run ios:sync` whenever the web application changes so
+the generated native web bundle is refreshed locally.
