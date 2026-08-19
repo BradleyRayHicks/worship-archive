@@ -31,6 +31,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "postinstall": "node scripts/use-capacitor-fork.mjs",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "ios:sync": "npm run build && cap sync ios",
