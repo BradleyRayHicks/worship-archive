@@ -13,6 +13,7 @@ function createWindow() {
     width: 900,
     height: 800,
     show: false, // Don't show until ready
+    icon: path.join(__dirname, 'icon.icns'),
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
