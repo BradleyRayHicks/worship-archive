@@ -1,0 +1,11 @@
+{
+	"appId": "com.worshiparchive.app",
+	"appName": "Worship Archive",
+	"webDir": "build",
+	"packageClassList": [
+		"GenericOAuth2Plugin",
+		"AppPlugin",
+		"CAPBrowserPlugin",
+		"PreferencesPlugin"
+	]
+}
